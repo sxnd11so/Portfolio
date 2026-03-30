@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Music blog - Discover album reviews, vinyl collecting tips, and music culture"
+    />
+    <title>Blog - iiiso's library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="e-store.css" />
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <header id="header">
+      <div class="logo" role="banner">
+        <a href="e-store.html" aria-label="iiiso's library home">
+          iiiso<span class="library">'s libr</span><span class="our">ary</span>
+        </a>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul id="navbar">
+          <li><a href="e-store.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li>
+            <a class="active" href="blog.html" aria-current="page">Blog</a>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li id="lg-bag">
+            <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" id="close" aria-label="Close menu">
+              <i class="far fa-times" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mobile">
+        <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCountMobile">0</span>
+        </a>
+        <button
+          type="button"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="fas fa-outdent" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section id="page-header">
+      <h2>#ExpandYourMusicTaste</h2>
+      <p>Discover stories, reviews, and insights from the world of vinyl</p>
+    </section>
+
+    <section id="blog">
+      <!-- Featured Post -->
+      <article class="blog-box featured-post">
+        <div class="blog-img">
+          <span class="featured-badge">Featured</span>
+          <img
+            src="https://images.unsplash.com/photo-1619983081563-430f63602796?w=800&h=600&fit=crop"
+            alt="Vinyl collection"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> January 15, 2025</span>
+            <span><i class="fas fa-user"></i> Sandiso Thebe</span>
+            <span><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h4>The Art of Vinyl Collecting: A Beginner's Complete Guide</h4>
+          <p>
+            Embark on your vinyl journey with our comprehensive guide. Learn
+            everything from choosing your first turntable to building a
+            collection that reflects your musical taste. Discover the warmth and
+            authenticity that only vinyl can provide.
+          </p>
+          <a href="#"> Read Full Article <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <!-- Regular Posts -->
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Reviews</span>
+          <div class="blog-date">
+            <div class="day">13</div>
+            <div class="month">JAN</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=600&h=400&fit=crop"
+            alt="R&B albums"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Sarah Johnson</span>
+            <span><i class="fas fa-clock"></i> 5 min</span>
+          </div>
+          <h4>Top 10 R&B Albums That Defined the Decade</h4>
+          <p>
+            Explore the soulful sounds that shaped modern R&B. From Frank
+            Ocean's introspective lyrics to SZA's vulnerable storytelling,
+            discover the albums that became cultural touchstones.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Tips & Tricks</span>
+          <div class="blog-date">
+            <div class="day">10</div>
+            <div class="month">JAN</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1512070679279-8988d32161be?w=600&h=400&fit=crop"
+            alt="Vinyl care"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Michael Chen</span>
+            <span><i class="fas fa-clock"></i> 6 min</span>
+          </div>
+          <h4>How to Properly Care for Your Vinyl Collection</h4>
+          <p>
+            Protect your investment with proper vinyl care. Learn the best
+            practices for cleaning, storing, and maintaining your records to
+            ensure they sound pristine for years to come.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Culture</span>
+          <div class="blog-date">
+            <div class="day">08</div>
+            <div class="month">JAN</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop"
+            alt="Hip hop culture"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Sandiso Thebe</span>
+            <span><i class="fas fa-clock"></i> 7 min</span>
+          </div>
+          <h4>The Golden Age of Hip-Hop: Albums Worth Collecting</h4>
+          <p>
+            Journey back to hip-hop's most influential era. From Nas to Wu-Tang
+            Clan, explore the albums that revolutionized the genre and remain
+            essential listening today.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Interviews</span>
+          <div class="blog-date">
+            <div class="day">05</div>
+            <div class="month">JAN</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=400&fit=crop"
+            alt="Music interview"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Sarah Johnson</span>
+            <span><i class="fas fa-clock"></i> 10 min</span>
+          </div>
+          <h4>Inside the Studio: Conversations with Local Artists</h4>
+          <p>
+            Get an exclusive look behind the scenes as we chat with emerging
+            artists about their creative process, inspirations, and what vinyl
+            means to them in the digital age.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Guides</span>
+          <div class="blog-date">
+            <div class="day">02</div>
+            <div class="month">JAN</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop"
+            alt="Turntable setup"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Michael Chen</span>
+            <span><i class="fas fa-clock"></i> 12 min</span>
+          </div>
+          <h4>Setting Up Your Perfect Listening Space</h4>
+          <p>
+            Transform your room into an audiophile's paradise. Learn about
+            speaker placement, acoustic treatment, and creating the ideal
+            environment for vinyl listening.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+
+      <article class="blog-box">
+        <div class="blog-img">
+          <span class="blog-category">Reviews</span>
+          <div class="blog-date">
+            <div class="day">29</div>
+            <div class="month">DEC</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=400&fit=crop"
+            alt="New releases"
+          />
+        </div>
+        <div class="blog-details">
+          <div class="blog-meta">
+            <span><i class="fas fa-user"></i> Sarah Johnson</span>
+            <span><i class="fas fa-clock"></i> 8 min</span>
+          </div>
+          <h4>December's Must-Have Vinyl Releases</h4>
+          <p>
+            Discover the month's hottest pressings, from highly anticipated
+            debuts to special edition reissues. Don't miss these additions to
+            your collection.
+          </p>
+          <a href="#"> Continue Reading <i class="fas fa-arrow-right"></i> </a>
+        </div>
+      </article>
+    </section>
+
+    <section id="pagination" class="section-p1">
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <footer class="section-p1">
+      <div class="footer-container">
+        <div class="col">
+          <h3>Vinyl Revival</h3>
+          <p>Your destination for premium vinyl records and authentic sound.</p>
+        </div>
+
+        <div class="col">
+          <h4>Shop</h4>
+          <nav aria-label="Footer shop navigation">
+            <a href="#">New Releases</a>
+            <a href="#">Featured</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Rare Finds</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Customer Care</h4>
+          <nav aria-label="Footer customer care navigation">
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Connect</h4>
+          <nav aria-label="Footer social navigation">
+            <a href="#" rel="noopener noreferrer" target="_blank">Instagram</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Facebook</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Twitter</a>
+            <a href="#">Newsletter</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 iiiso's library. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      let cart = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCartFromStorage();
+        updateCartCount();
+        initializeEventListeners();
+        initializeBackToTop();
+      });
+
+      function loadCartFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylCart");
+          if (stored) cart = JSON.parse(stored);
+        } catch (e) {
+          cart = [];
+        }
+      }
+
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElements = document.querySelectorAll(".cart-count");
+
+        cartCountElements.forEach((element) => {
+          element.textContent = totalItems;
+          element.style.display = totalItems > 0 ? "flex" : "none";
+        });
+      }
+
+      function initializeEventListeners() {
+        const bar = document.getElementById("bar");
+        const close = document.getElementById("close");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+          bar.addEventListener("click", () => {
+            navbar.classList.add("active");
+            bar.setAttribute("aria-expanded", "true");
+          });
+        }
+
+        if (close) {
+          close.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        }
+      }
+
+      function initializeBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (!backToTopButton) return;
+
+        window.addEventListener("scroll", () => {
+          backToTopButton.classList.toggle("show", window.pageYOffset > 300);
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    </script>
+  </body>
+</html>

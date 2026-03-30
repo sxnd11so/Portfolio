@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Shopping cart - iiiso's library" />
+    <title>Shopping Cart - iiiso's library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="e-store.css" />
+
+   
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <header id="header">
+      <div class="logo" role="banner">
+        <a href="e-store.html" aria-label="iiiso's library home">
+          iiiso<span class="library">'s libr</span><span class="our">ary</span>
+        </a>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul id="navbar">
+          <li><a href="e-store.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li id="lg-bag">
+            <a
+              class="active"
+              href="cart.html"
+              aria-label="Shopping cart"
+              class="cart-link"
+            >
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" id="close" aria-label="Close menu">
+              <i class="far fa-times" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mobile">
+        <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCountMobile">0</span>
+        </a>
+        <button
+          type="button"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="fas fa-outdent" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section id="page-header">
+      <h2>Shopping Cart</h2>
+      <p>Review your items and proceed to checkout</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+      <div id="cartContent">
+        <!-- Cart items will be loaded here -->
+      </div>
+    </section>
+
+    <section id="cart-add" class="section-p1" style="display: none">
+      <div id="coupon">
+        <h3>Apply Coupon</h3>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter your coupon code"
+            id="couponInput"
+          />
+          <button onclick="applyCoupon()">Apply</button>
+        </div>
+      </div>
+
+      <div id="subtotal">
+        <h3>Cart Total</h3>
+        <table>
+          <tr>
+            <td>Cart Subtotal</td>
+            <td id="cartSubtotal">R0</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong id="cartTotal">R0</strong></td>
+          </tr>
+        </table>
+        <button onclick="proceedToCheckout()">Proceed to Checkout</button>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <footer class="section-p1">
+      <div class="footer-container">
+        <div class="col">
+          <h3>Vinyl Revival</h3>
+          <p>Your destination for premium vinyl records and authentic sound.</p>
+        </div>
+
+        <div class="col">
+          <h4>Shop</h4>
+          <nav aria-label="Footer shop navigation">
+            <a href="#">New Releases</a>
+            <a href="#">Featured</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Rare Finds</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Customer Care</h4>
+          <nav aria-label="Footer customer care navigation">
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Connect</h4>
+          <nav aria-label="Footer social navigation">
+            <a href="#" rel="noopener noreferrer" target="_blank">Instagram</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Facebook</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Twitter</a>
+            <a href="#">Newsletter</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 iiiso's library. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      let cart = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCartFromStorage();
+        updateCartCount();
+        renderCart();
+        initializeEventListeners();
+        initializeBackToTop();
+      });
+
+      function loadCartFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylCart");
+          if (stored) {
+            cart = JSON.parse(stored);
+          }
+        } catch (e) {
+          console.error("Error loading cart:", e);
+          cart = [];
+        }
+      }
+
+      function saveCartToStorage() {
+        try {
+          localStorage.setItem("vinylCart", JSON.stringify(cart));
+        } catch (e) {
+          console.error("Error saving cart:", e);
+        }
+      }
+
+      function renderCart() {
+        const cartContent = document.getElementById("cartContent");
+        const cartAddSection = document.getElementById("cart-add");
+
+        if (cart.length === 0) {
+          cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some albums to get started!</p>
+                        <a href="shop.html">Continue Shopping</a>
+                    </div>
+                `;
+          cartAddSection.style.display = "none";
+          return;
+        }
+
+        cartAddSection.style.display = "flex";
+
+        cartContent.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Remove</td>
+                            <td>Image</td>
+                            <td>Product</td>
+                            <td>Artist</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cart
+                          .map(
+                            (item, index) => `
+                            <tr>
+                                <td>
+                                    <i class="fa-solid fa-trash remove-btn" onclick="removeFromCart(${index})"></i>
+                                </td>
+                                <td><img src="${item.image}" alt="${
+                              item.title
+                            }"></td>
+                                <td>${item.title}</td>
+                                <td>${item.artist}</td>
+                                <td>R${item.price}</td>
+                                <td>
+                                    <input type="number" value="${
+                                      item.quantity
+                                    }" min="1" 
+                                           onchange="updateQuantity(${index}, this.value)">
+                                </td>
+                                <td>R${(item.price * item.quantity).toFixed(
+                                  2
+                                )}</td>
+                            </tr>
+                        `
+                          )
+                          .join("")}
+                    </tbody>
+                </table>
+            `;
+
+        updateTotals();
+      }
+
+      function updateQuantity(index, newQuantity) {
+        const quantity = parseInt(newQuantity);
+        if (quantity > 0) {
+          cart[index].quantity = quantity;
+          saveCartToStorage();
+          renderCart();
+          updateCartCount();
+          showToast("Quantity updated", "info");
+        }
+      }
+
+      function removeFromCart(index) {
+        const item = cart[index];
+        cart.splice(index, 1);
+        saveCartToStorage();
+        renderCart();
+        updateCartCount();
+        showToast(`"${item.title}" removed from cart`, "info");
+      }
+
+      function updateTotals() {
+        const subtotal = cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        document.getElementById(
+          "cartSubtotal"
+        ).textContent = `R${subtotal.toFixed(2)}`;
+        document.getElementById("cartTotal").textContent = `R${subtotal.toFixed(
+          2
+        )}`;
+      }
+
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElements = document.querySelectorAll(".cart-count");
+
+        cartCountElements.forEach((element) => {
+          element.textContent = totalItems;
+          element.style.display = totalItems > 0 ? "flex" : "none";
+        });
+      }
+
+      function applyCoupon() {
+        const couponInput = document.getElementById("couponInput");
+        const code = couponInput.value.trim().toUpperCase();
+
+        if (code === "VINYL10") {
+          showToast("Coupon applied! 10% discount", "success");
+        } else if (code) {
+          showToast("Invalid coupon code", "error");
+        } else {
+          showToast("Please enter a coupon code", "info");
+        }
+      }
+
+      function proceedToCheckout() {
+        if (cart.length === 0) {
+          showToast("Your cart is empty", "error");
+          return;
+        }
+        showToast("Proceeding to checkout...", "success");
+        // In a real application, this would redirect to a checkout page
+      }
+
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      function initializeEventListeners() {
+        const bar = document.getElementById("bar");
+        const close = document.getElementById("close");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+          bar.addEventListener("click", () => {
+            navbar.classList.add("active");
+            bar.setAttribute("aria-expanded", "true");
+          });
+        }
+
+        if (close) {
+          close.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        }
+      }
+
+      function initializeBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (!backToTopButton) return;
+
+        window.addEventListener("scroll", () => {
+          backToTopButton.classList.toggle("show", window.pageYOffset > 300);
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="About iiiso's library - Your destination for premium vinyl records"
+    />
+    <title>About - iiiso's library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="e-store.css" />
+
+  
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <header id="header">
+      <div class="logo" role="banner">
+        <a href="e-store.html" aria-label="iiiso's library home">
+          iiiso<span class="library">'s libr</span><span class="our">ary</span>
+        </a>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul id="navbar">
+          <li><a href="e-store.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="search.html">Search</a></li>
+
+          <li><a href="blog.html">Blog</a></li>
+          <li>
+            <a class="active" href="about.html" aria-current="page">About</a>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+          <li id="lg-bag">
+            <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" id="close" aria-label="Close menu">
+              <i class="far fa-times" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mobile">
+        <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCountMobile">0</span>
+        </a>
+        <button
+          type="button"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="fas fa-outdent" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section id="page-header">
+      <h2>#KnowUs</h2>
+      <p>Passionate about vinyl, dedicated to quality</p>
+    </section>
+
+    <section id="about-head" class="section-p1">
+      <img
+        src="https://images.unsplash.com/photo-1512070679279-8988d32161be?w=800&h=600&fit=crop"
+        alt="Vinyl records collection"
+      />
+      <div>
+        <h2>Our Story</h2>
+        <p>
+          Welcome to iiiso's library, where the love of music meets the art of
+          collecting. We're more than just a vinyl store – we're a community of
+          music enthusiasts dedicated to preserving the authentic sound and
+          tactile experience that only vinyl can provide.
+        </p>
+
+        <p>
+          Founded by a passionate collector and self-taught developer, our
+          journey began with a simple belief: music deserves to be experienced
+          in its purest form. Every groove, every crackle, every note tells a
+          story that digital formats simply can't capture.
+        </p>
+
+        <p>
+          Today, we curate a carefully selected collection of albums spanning
+          genres from classic hip-hop to timeless rock, contemporary R&B to
+          legendary jazz. Each record in our collection is chosen for its
+          musical significance and audio quality, ensuring that every purchase
+          is an investment in your musical journey.
+        </p>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-box">
+          <i class="fas fa-record-vinyl"></i>
+          <h3>5,000+</h3>
+          <p>Vinyl Records</p>
+        </div>
+        <div class="stat-box">
+          <i class="fas fa-users"></i>
+          <h3>2,500+</h3>
+          <p>Happy Customers</p>
+        </div>
+        <div class="stat-box">
+          <i class="fas fa-award"></i>
+          <h3>10+</h3>
+          <p>Years Experience</p>
+        </div>
+        <div class="stat-box">
+          <i class="fas fa-star"></i>
+          <h3>4.9/5</h3>
+          <p>Customer Rating</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-section">
+      <div class="mission-container">
+        <h2>Our Mission</h2>
+        <p>
+          To bring the warmth and authenticity of vinyl records to music lovers
+          everywhere, creating a bridge between the golden age of analog sound
+          and the modern era of music appreciation.
+        </p>
+
+        <div class="values-grid">
+          <div class="value-card">
+            <i class="fas fa-heart"></i>
+            <h3>Passion</h3>
+            <p>
+              Every record we stock is chosen with care and love for the music
+              it holds.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <i class="fas fa-certificate"></i>
+            <h3>Quality</h3>
+            <p>
+              We ensure every album meets our high standards for audio quality
+              and condition.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <i class="fas fa-handshake"></i>
+            <h3>Community</h3>
+            <p>
+              Building connections between collectors, artists, and music
+              enthusiasts.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <i class="fas fa-leaf"></i>
+            <h3>Sustainability</h3>
+            <p>
+              Promoting eco-friendly packaging and supporting independent
+              artists.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <h2>Meet the Team</h2>
+      <p class="section-subtitle">
+        The passionate people behind iiiso's library
+      </p>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+            alt="Team member"
+          />
+          <div class="team-info">
+            <h3>Sandiso Thebe</h3>
+            <p class="role">Founder & Curator</p>
+            <p>
+              Self-taught developer and vinyl enthusiast with a passion for
+              bringing quality music to collectors.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
+            alt="Team member"
+          />
+          <div class="team-info">
+            <h3>Sarah Johnson</h3>
+            <p class="role">Music Curator</p>
+            <p>
+              Expert in rare finds and classic albums, specializing in jazz and
+              soul collections.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop"
+            alt="Team member"
+          />
+          <div class="team-info">
+            <h3>Michael Chen</h3>
+            <p class="role">Customer Experience</p>
+            <p>
+              Ensuring every customer finds the perfect addition to their
+              collection.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <footer class="section-p1">
+      <div class="footer-container">
+        <div class="col">
+          <h3>Vinyl Revival</h3>
+          <p>Your destination for premium vinyl records and authentic sound.</p>
+        </div>
+
+        <div class="col">
+          <h4>Shop</h4>
+          <nav aria-label="Footer shop navigation">
+            <a href="#">New Releases</a>
+            <a href="#">Featured</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Rare Finds</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Customer Care</h4>
+          <nav aria-label="Footer customer care navigation">
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Connect</h4>
+          <nav aria-label="Footer social navigation">
+            <a href="#" rel="noopener noreferrer" target="_blank">Instagram</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Facebook</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Twitter</a>
+            <a href="#">Newsletter</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 iiiso's library. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      let cart = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCartFromStorage();
+        updateCartCount();
+        initializeEventListeners();
+        initializeBackToTop();
+      });
+
+      function loadCartFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylCart");
+          if (stored) cart = JSON.parse(stored);
+        } catch (e) {
+          cart = [];
+        }
+      }
+
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElements = document.querySelectorAll(".cart-count");
+
+        cartCountElements.forEach((element) => {
+          element.textContent = totalItems;
+          element.style.display = totalItems > 0 ? "flex" : "none";
+        });
+      }
+
+      function initializeEventListeners() {
+        const bar = document.getElementById("bar");
+        const close = document.getElementById("close");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+          bar.addEventListener("click", () => {
+            navbar.classList.add("active");
+            bar.setAttribute("aria-expanded", "true");
+          });
+        }
+
+        if (close) {
+          close.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        }
+      }
+
+      function initializeBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (!backToTopButton) return;
+
+        window.addEventListener("scroll", () => {
+          backToTopButton.classList.toggle("show", window.pageYOffset > 300);
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    </script>
+  </body>
+</html>

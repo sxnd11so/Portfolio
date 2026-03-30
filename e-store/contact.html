@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contact iiiso's library - Get in touch with us"
+    />
+    <title>Contact - iiiso's library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="e-store.css" />
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <header id="header">
+      <div class="logo" role="banner">
+        <a href="e-store.html" aria-label="iiiso's library home">
+          iiiso<span class="library">'s libr</span><span class="our">ary</span>
+        </a>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul id="navbar">
+          <li><a href="e-store.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li>
+            <a class="active" href="contact.html" aria-current="page"
+              >Contact</a
+            >
+          </li>
+          <li id="lg-bag">
+            <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" id="close" aria-label="Close menu">
+              <i class="far fa-times" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mobile">
+        <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCountMobile">0</span>
+        </a>
+        <button
+          type="button"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="fas fa-outdent" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section id="page-header">
+      <h2>#Let'sTalk</h2>
+      <p>We'd love to hear from you</p>
+    </section>
+
+    <section id="contact-details" class="section-p1">
+      <div class="details">
+        <span>GET IN TOUCH</span>
+        <h2>Visit our vinyl store or reach out online</h2>
+        <h3>Head Office</h3>
+
+        <div>
+          <li>
+            <i class="fa-solid fa-map-location-dot"></i>
+            <p>
+              <strong>Address:</strong><br />1705 Heaven Street Avenue<br />Johannesburg,
+              South Africa
+            </p>
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope"></i>
+            <p>
+              <strong>Email:</strong
+              ><br />hello@iiisoslibrary.com<br />support@iiisoslibrary.com
+            </p>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <p>
+              <strong>Phone:</strong><br />+27 89 456 7896<br />Mon-Fri: 9:00 AM
+              - 6:00 PM
+            </p>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <p>
+              <strong>Store Hours:</strong><br />Monday to Sunday<br />9:00 AM
+              to 4:00 PM
+            </p>
+          </li>
+        </div>
+      </div>
+
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.1174316922!2d28.02787217462652!3d-26.192857963510594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e953db5fe719e79%3A0x9d63b2d3be70f8ba!2sUniversity%20of%20the%20Witwatersrand%2C%20Johannesburg!5e0!3m2!1sen!2sza!4v1720546680054!5m2!1sen!2sza"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+      </div>
+    </section>
+
+    <section id="form-details">
+      <form id="contactForm">
+        <span>LEAVE A MESSAGE</span>
+        <h2>We love to hear from you</h2>
+
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> Thank you! Your message has been
+          sent successfully.
+        </div>
+
+        <input type="text" placeholder="Your Name" id="name" required />
+        <input type="email" placeholder="Email Address" id="email" required />
+        <input type="text" placeholder="Subject" id="subject" required />
+        <textarea placeholder="Your Message" id="message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <div class="people">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop"
+            alt="Sandiso Thebe"
+          />
+          <p>
+            <span>Sandiso Thebe</span>
+            Founder & CEO<br />
+            Phone: +27 89 456 4568<br />
+            Email: sandiso@iiisoslibrary.com
+          </p>
+        </div>
+
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop"
+            alt="Sarah Johnson"
+          />
+          <p>
+            <span>Sarah Johnson</span>
+            Music Curator<br />
+            Phone: +27 34 496 7776<br />
+            Email: sarah@iiisoslibrary.com
+          </p>
+        </div>
+
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop"
+            alt="Michael Chen"
+          />
+          <p>
+            <span>Michael Chen</span>
+            Customer Experience Manager<br />
+            Phone: +27 89 234 1234<br />
+            Email: michael@iiisoslibrary.com
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <footer class="section-p1">
+      <div class="footer-container">
+        <div class="col">
+          <h3>Vinyl Revival</h3>
+          <p>Your destination for premium vinyl records and authentic sound.</p>
+        </div>
+
+        <div class="col">
+          <h4>Shop</h4>
+          <nav aria-label="Footer shop navigation">
+            <a href="#">New Releases</a>
+            <a href="#">Featured</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Rare Finds</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Customer Care</h4>
+          <nav aria-label="Footer customer care navigation">
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Connect</h4>
+          <nav aria-label="Footer social navigation">
+            <a
+              href="https://instagram.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Instagram</a
+            >
+            <a
+              href="https://facebook.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Facebook</a
+            >
+            <a
+              href="https://twitter.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Twitter</a
+            >
+            <a href="#">Newsletter</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 iiiso's library. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      let cart = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCartFromStorage();
+        updateCartCount();
+        initializeEventListeners();
+        initializeBackToTop();
+        initializeContactForm();
+      });
+
+      function loadCartFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylCart");
+          if (stored) cart = JSON.parse(stored);
+        } catch (e) {
+          cart = [];
+        }
+      }
+
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElements = document.querySelectorAll(".cart-count");
+
+        cartCountElements.forEach((element) => {
+          element.textContent = totalItems;
+          element.style.display = totalItems > 0 ? "flex" : "none";
+        });
+      }
+
+      function initializeEventListeners() {
+        const bar = document.getElementById("bar");
+        const close = document.getElementById("close");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+          bar.addEventListener("click", () => {
+            navbar.classList.add("active");
+            bar.setAttribute("aria-expanded", "true");
+          });
+        }
+
+        if (close) {
+          close.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        }
+      }
+
+      function initializeBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (!backToTopButton) return;
+
+        window.addEventListener("scroll", () => {
+          backToTopButton.classList.toggle("show", window.pageYOffset > 300);
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function initializeContactForm() {
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const subject = document.getElementById("subject").value;
+          const message = document.getElementById("message").value;
+
+          // Show success message
+          const successMessage = document.getElementById("successMessage");
+          successMessage.classList.add("show");
+
+          // Show toast
+          showToast(
+            "Message sent successfully! We'll get back to you soon.",
+            "success"
+          );
+
+          // Clear form
+          form.reset();
+
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 5000);
+
+          // In a real application, you would send this data to a server
+          console.log("Form submitted:", { name, email, subject, message });
+        });
+      }
+
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG - Dragon Repeller Enhanced</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a23 0%, #1a1a3a 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #game {
+            max-width: 600px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #0a0a23;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.3s;
+        }
+
+        #stats {
+            border: 2px solid #0a0a23;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+        }
+
+        .stat {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .stat-bar-container {
+            display: block;
+            margin-top: 10px;
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #999;
+        }
+
+        .stat-bar {
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .health-bar {
+            background: linear-gradient(90deg, #ff4444 0%, #cc0000 100%);
+        }
+
+        .xp-bar {
+            background: linear-gradient(90deg, #4444ff 0%, #0000cc 100%);
+        }
+
+        #controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            cursor: pointer;
+            color: #0a0a23;
+            background: linear-gradient(135deg, #fecc4c 0%, #ffac33 100%);
+            border: 3px solid #feac32;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffd966 0%, #ffb84d 100%);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #monsterStats {
+            display: none;
+            border: 2px solid #c70d0d;
+            padding: 15px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #c70d0d 0%, #a00a0a 100%);
+            border-radius: 5px;
+            margin-bottom: 15px;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #text {
+            background-color: #0a0a23;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 120px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        #inventory {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 2px solid #0a0a23;
+            border-radius: 5px;
+        }
+
+        #inventory h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .inventory-item {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px;
+            background: #fecc4c;
+            border: 2px solid #feac32;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .equipped {
+            background: #4caf50;
+            border-color: #45a049;
+            color: white;
+        }
+
+        #saveLoad {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #saveLoad button {
+            flex: 1;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            border-color: #45a049;
+        }
+
+        #saveLoad button:last-child {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            border-color: #1976d2;
+        }
+
+        .combat-log {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            font-size: 12px;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .critical {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .level-up {
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="stats">
+            <span class="stat">Level: <strong><span id="levelText">1</span></strong></span>
+            <span class="stat">XP: <strong><span id="xpText">0</span>/<span id="xpNeeded">10</span></strong></span>
+            <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span>
+            <div class="stat-bar-container">
+                <div class="stat-bar health-bar" id="healthBar">
+                    <span>Health: <span id="healthText">100</span>/<span id="maxHealthText">100</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="controls">
+            <button id="button1">Go to store</button>
+            <button id="button2">Go to cave</button>
+            <button id="button3">Fight dragon</button>
+        </div>
+        
+        <div id="monsterStats">
+            <span class="stat">Monster: <strong><span id="monsterName"></span></strong> [Lvl <span id="monsterLevel"></span>]</span>
+            <div class="stat-bar-container">
+                <div class="stat-bar health-bar" id="monsterHealthBar">
+                    <span>HP: <span id="monsterHealth"></span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="text">
+            Welcome to Dragon Repeller Enhanced! You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.
+        </div>
+
+        <div id="inventory">
+            <h3>Inventory</h3>
+            <div id="inventoryList"></div>
+        </div>
+
+        <div id="saveLoad">
+            <button onclick="saveGame()">💾 Save Game</button>
+            <button onclick="loadGame()">📂 Load Game</button>
+        </div>
+    </div>
+
+    <script>
+        let xp = 0;
+        let health = 100;
+        let maxHealth = 100;
+        let gold = 50;
+        let level = 1;
+        let currentWeaponIndex = 0;
+        let fighting;
+        let monsterHealth;
+        let maxMonsterHealth;
+        let inventory = ["stick"];
+
+        const button1 = document.querySelector('#button1');
+        const button2 = document.querySelector("#button2");
+        const button3 = document.querySelector("#button3");
+        const text = document.querySelector("#text");
+        const xpText = document.querySelector("#xpText");
+        const xpNeededText = document.querySelector("#xpNeeded");
+        const healthText = document.querySelector("#healthText");
+        const maxHealthText = document.querySelector("#maxHealthText");
+        const goldText = document.querySelector("#goldText");
+        const levelText = document.querySelector("#levelText");
+        const monsterStats = document.querySelector("#monsterStats");
+        const monsterName = document.querySelector("#monsterName");
+        const monsterLevel = document.querySelector("#monsterLevel");
+        const monsterHealthText = document.querySelector("#monsterHealth");
+        const healthBar = document.querySelector("#healthBar");
+        const monsterHealthBar = document.querySelector("#monsterHealthBar");
+        const inventoryList = document.querySelector("#inventoryList");
+
+        const weapons = [
+            { name: 'stick', power: 5, cost: 0 },
+            { name: 'dagger', power: 15, cost: 30 },
+            { name: 'claw hammer', power: 30, cost: 60 },
+            { name: 'sword', power: 50, cost: 100 },
+            { name: 'excalibur', power: 80, cost: 200 }
+        ];
+
+        const monsters = [
+            { name: "slime", level: 2, health: 20 },
+            { name: "fanged beast", level: 5, health: 50 },
+            { name: "dark knight", level: 10, health: 100 },
+            { name: "dragon", level: 20, health: 300 }
+        ];
+
+        const locations = [
+            {
+                name: "town square",
+                "button text": ["Go to store", "Go to cave", "Go to forest"],
+                "button functions": [goStore, goCave, goForest],
+                text: "You are in the town square. You see a sign that says 'Store' and paths leading to a dark cave and a mysterious forest."
+            },
+            {
+                name: "store",
+                "button text": ["Buy health (10 gold)", "Buy weapon", "Go to town square"],
+                "button functions": [buyHealth, buyWeapon, goTown],
+                text: "You enter the store. The merchant greets you warmly."
+            },
+            {
+                name: "cave",
+                "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+                "button functions": [fightSlime, fightBeast, goTown],
+                text: "You enter the dark cave. Water drips from the ceiling. You hear strange noises..."
+            },
+            {
+                name: "forest",
+                "button text": ["Search for herbs", "Fight dark knight", "Go to town square"],
+                "button functions": [searchHerbs, fightKnight, goTown],
+                text: "You enter the mysterious forest. Ancient trees surround you."
+            },
+            {
+                name: "fight",
+                "button text": ["Attack", "Dodge", "Use Potion"],
+                "button functions": [attack, dodge, usePotion],
+                text: "You are fighting a monster."
+            },
+            {
+                name: "kill monster",
+                "button text": ["Go to town square", "Go to cave", "Go to forest"],
+                "button functions": [goTown, goCave, goForest],
+                text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+            },
+            {
+                name: "lose",
+                "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+                "button functions": [restart, restart, restart],
+                text: "You die. ☠️ Game Over!"
+            },
+            {
+                name: "win",
+                "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+                "button functions": [restart, restart, restart],
+                text: "You defeat the dragon! 🎉 The town is saved! You are victorious!"
+            }
+        ];
+
+        button1.onclick = goStore;
+        button2.onclick = goCave;
+        button3.onclick = goForest;
+
+        function update(location) {
+            monsterStats.style.display = "none";
+            button1.innerText = location["button text"][0];
+            button2.innerText = location["button text"][1];
+            button3.innerText = location["button text"][2];
+            button1.onclick = location["button functions"][0];
+            button2.onclick = location["button functions"][1];
+            button3.onclick = location["button functions"][2];
+            text.innerHTML = location.text;
+        }
+
+        function updateInventoryDisplay() {
+            inventoryList.innerHTML = "";
+            inventory.forEach((item, index) => {
+                const itemDiv = document.createElement("span");
+                itemDiv.className = "inventory-item";
+                if (index === currentWeaponIndex) {
+                    itemDiv.className += " equipped";
+                }
+                const weapon = weapons.find(w => w.name === item);
+                itemDiv.innerText = `${item} (${weapon.power} ⚔️)`;
+                inventoryList.appendChild(itemDiv);
+            });
+        }
+
+        function updateHealthBar() {
+            const healthPercent = (health / maxHealth) * 100;
+            healthBar.style.width = healthPercent + "%";
+            healthText.innerText = health;
+            maxHealthText.innerText = maxHealth;
+        }
+
+        function updateMonsterHealthBar() {
+            const healthPercent = (monsterHealth / maxMonsterHealth) * 100;
+            monsterHealthBar.style.width = healthPercent + "%";
+            monsterHealthText.innerText = monsterHealth;
+        }
+
+        function goTown() {
+            update(locations[0]);
+        }
+
+        function goStore() {
+            update(locations[1]);
+        }
+
+        function goCave() {
+            update(locations[2]);
+        }
+
+        function goForest() {
+            update(locations[3]);
+        }
+
+        function buyHealth() {
+            if (gold >= 10) {
+                gold -= 10;
+                health = Math.min(health + 20, maxHealth);
+                goldText.innerText = gold;
+                updateHealthBar();
+                text.innerText = "You bought a health potion and feel refreshed! (+20 HP)";
+            } else {
+                text.innerText = "You do not have enough gold to buy health.";
+            }
+        }
+
+        function buyWeapon() {
+            if (currentWeaponIndex < weapons.length - 1) {
+                const nextWeapon = weapons[currentWeaponIndex + 1];
+                if (gold >= nextWeapon.cost) {
+                    gold -= nextWeapon.cost;
+                    currentWeaponIndex++;
+                    goldText.innerText = gold;
+                    inventory.push(nextWeapon.name);
+                    text.innerText = `You bought a ${nextWeapon.name}! (Power: ${nextWeapon.power})`;
+                    updateInventoryDisplay();
+                } else {
+                    text.innerText = `You need ${nextWeapon.cost} gold to buy a ${nextWeapon.name}. (You have ${gold} gold)`;
+                }
+            } else {
+                text.innerText = "You already have the most powerful weapon!";
+                button2.innerText = "Sell weapon (15 gold)";
+                button2.onclick = sellWeapon;
+            }
+        }
+
+        function sellWeapon() {
+            if (inventory.length > 1) {
+                gold += 15;
+                goldText.innerText = gold;
+                currentWeaponIndex--;
+                let soldWeapon = inventory.pop();
+                text.innerText = `You sold your ${soldWeapon} for 15 gold.`;
+                updateInventoryDisplay();
+            } else {
+                text.innerText = "Don't sell your only weapon!";
+            }
+        }
+
+        function searchHerbs() {
+            const found = Math.random();
+            if (found > 0.5) {
+                const healing = Math.floor(Math.random() * 20) + 10;
+                health = Math.min(health + healing, maxHealth);
+                updateHealthBar();
+                text.innerText = `You found some healing herbs! (+${healing} HP)`;
+            } else {
+                const goldFound = Math.floor(Math.random() * 10) + 5;
+                gold += goldFound;
+                goldText.innerText = gold;
+                text.innerText = `You found ${goldFound} gold hidden in the forest!`;
+            }
+        }
+
+        function fightSlime() {
+            fighting = 0;
+            goFight();
+        }
+
+        function fightBeast() {
+            fighting = 1;
+            goFight();
+        }
+
+        function fightKnight() {
+            fighting = 2;
+            goFight();
+        }
+
+        function fightDragon() {
+            fighting = 3;
+            goFight();
+        }
+
+        function goFight() {
+            update(locations[4]);
+            monsterHealth = monsters[fighting].health;
+            maxMonsterHealth = monsters[fighting].health;
+            monsterStats.style.display = "block";
+            monsterName.innerText = monsters[fighting].name;
+            monsterLevel.innerText = monsters[fighting].level;
+            updateMonsterHealthBar();
+        }
+
+        function attack() {
+            const weapon = weapons[currentWeaponIndex];
+            const playerDamage = weapon.power + Math.floor(Math.random() * (xp / 2 + 1)) + level;
+            const isCritical = Math.random() < 0.15;
+            const finalDamage = isCritical ? playerDamage * 2 : playerDamage;
+            
+            const monsterDamage = Math.max(monsters[fighting].level - Math.floor(level / 2), 1);
+            
+            text.innerHTML = `The ${monsters[fighting].name} attacks! You take ${monsterDamage} damage.<br>`;
+            text.innerHTML += `You attack with your ${weapon.name}!`;
+            
+            if (isCritical) {
+                text.innerHTML += ` <span class="critical">CRITICAL HIT!</span>`;
+                document.querySelector('#game').classList.add('shake');
+                setTimeout(() => document.querySelector('#game').classList.remove('shake'), 300);
+            }
+            
+            text.innerHTML += ` You deal ${finalDamage} damage!`;
+            
+            health -= monsterDamage;
+            monsterHealth -= finalDamage;
+            
+            updateHealthBar();
+            updateMonsterHealthBar();
+            
+            if (health <= 0) {
+                lose();
+            } else if (monsterHealth <= 0) {
+                if (fighting === 3) {
+                    winGame();
+                } else {
+                    defeatMonster();
+                }
+            }
+        }
+
+        function dodge() {
+            const dodgeSuccess = Math.random() < 0.5;
+            if (dodgeSuccess) {
+                text.innerText = `You successfully dodge the ${monsters[fighting].name}'s attack!`;
+            } else {
+                const damage = Math.floor(monsters[fighting].level / 2);
+                health -= damage;
+                updateHealthBar();
+                text.innerText = `You tried to dodge but failed! The ${monsters[fighting].name} hits you for ${damage} damage!`;
+                if (health <= 0) {
+                    lose();
+                }
+            }
+        }
+
+        function usePotion() {
+            if (health < maxHealth) {
+                const healing = Math.floor(maxHealth * 0.3);
+                health = Math.min(health + healing, maxHealth);
+                updateHealthBar();
+                text.innerText = `You used a potion and restored ${healing} HP! The monster attacks while you heal.`;
+                
+                const monsterDamage = Math.floor(monsters[fighting].level / 2);
+                health -= monsterDamage;
+                updateHealthBar();
+                text.innerHTML += `<br>The ${monsters[fighting].name} deals ${monsterDamage} damage!`;
+                
+                if (health <= 0) {
+                    lose();
+                }
+            } else {
+                text.innerText = "Your health is already full!";
+            }
+        }
+
+        function defeatMonster() {
+            const goldEarned = Math.floor(monsters[fighting].level * 8);
+            const xpEarned = monsters[fighting].level * 3;
+            
+            gold += goldEarned;
+            xp += xpEarned;
+            
+            goldText.innerText = gold;
+            xpText.innerText = xp;
+            
+            update(locations[5]);
+            text.innerHTML = `The ${monsters[fighting].name} is defeated!<br>`;
+            text.innerHTML += `You gained ${xpEarned} XP and found ${goldEarned} gold!`;
+            
+            checkLevelUp();
+        }
+
+        function checkLevelUp() {
+            const xpNeeded = level * 10;
+            xpNeededText.innerText = xpNeeded;
+            
+            if (xp >= xpNeeded) {
+                level++;
+                xp = 0;
+                maxHealth += 20;
+                health = maxHealth;
+                
+                levelText.innerText = level;
+                xpText.innerText = xp;
+                xpNeededText.innerText = level * 10;
+                updateHealthBar();
+                
+                text.innerHTML += `<br><span class="level-up">🎊 LEVEL UP! You are now level ${level}!</span><br>Max health increased to ${maxHealth}!`;
+            }
+        }
+
+        function lose() {
+            update(locations[6]);
+        }
+
+        function winGame() {
+            update(locations[7]);
+        }
+
+        function restart() {
+            xp = 0;
+            health = 100;
+            maxHealth = 100;
+            gold = 50;
+            level = 1;
+            currentWeaponIndex = 0;
+            inventory = ["stick"];
+            
+            goldText.innerText = gold;
+            levelText.innerText = level;
+            xpText.innerText = xp;
+            xpNeededText.innerText = 10;
+            updateHealthBar();
+            updateInventoryDisplay();
+            goTown();
+        }
+
+        function saveGame() {
+            const gameState = {
+                xp, health, maxHealth, gold, level, 
+                currentWeaponIndex, inventory
+            };
+            localStorage.setItem('dragonRepellerSave', JSON.stringify(gameState));
+            text.innerText = "Game saved successfully! ✅";
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem('dragonRepellerSave');
+            if (saved) {
+                const gameState = JSON.parse(saved);
+                xp = gameState.xp;
+                health = gameState.health;
+                maxHealth = gameState.maxHealth;
+                gold = gameState.gold;
+                level = gameState.level;
+                currentWeaponIndex = gameState.currentWeaponIndex;
+                inventory = gameState.inventory;
+                
+                goldText.innerText = gold;
+                levelText.innerText = level;
+                xpText.innerText = xp;
+                xpNeededText.innerText = level * 10;
+                updateHealthBar();
+                updateInventoryDisplay();
+                goTown();
+                text.innerText = "Game loaded successfully! ✅";
+            } else {
+                text.innerText = "No saved game found!";
+            }
+        }
+
+        updateInventoryDisplay();
+        updateHealthBar();
+    </script>
+</body>
+</html>

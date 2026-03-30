@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Shop vinyl records and albums at iiiso's library"
+    />
+    <title>Shop - iiiso's library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="e-store.css" />
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <header id="header">
+      <div class="logo" role="banner">
+        <a href="e-store.html" aria-label="iiiso's library home">
+          iiiso<span class="library">'s libr</span><span class="our">ary</span>
+        </a>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul id="navbar">
+          <li><a href="e-store.html">Home</a></li>
+          <li>
+            <a class="active" href="shop.html" aria-current="page">Shop</a>
+          </li>
+          <li><a href="search.html">Search</a></li>
+
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li id="lg-bag">
+            <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" id="close" aria-label="Close menu">
+              <i class="far fa-times" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="mobile">
+        <a href="cart.html" aria-label="Shopping cart" class="cart-link">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCountMobile">0</span>
+        </a>
+        <button
+          type="button"
+          id="bar"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="fas fa-outdent" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section id="page-header">
+      <h2>#VinylJunkie</h2>
+      <p>The best deals for all music lovers</p>
+    </section>
+
+    <section id="product1" class="section-p2">
+      <div class="pro-container">
+        <!-- Products will be loaded dynamically -->
+      </div>
+    </section>
+
+
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <footer class="section-p1">
+      <div class="footer-container">
+        <div class="col">
+          <h3>Vinyl Revival</h3>
+          <p>Your destination for premium vinyl records and authentic sound.</p>
+        </div>
+
+        <div class="col">
+          <h4>Shop</h4>
+          <nav aria-label="Footer shop navigation">
+            <a href="#">New Releases</a>
+            <a href="#">Featured</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Rare Finds</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Customer Care</h4>
+          <nav aria-label="Footer customer care navigation">
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <div class="col">
+          <h4>Connect</h4>
+          <nav aria-label="Footer social navigation">
+            <a href="#" rel="noopener noreferrer" target="_blank">Instagram</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Facebook</a>
+            <a href="#" rel="noopener noreferrer" target="_blank">Twitter</a>
+            <a href="#">Newsletter</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 iiiso's library. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // ============================================
+      // SHOP PAGE - JAVASCRIPT FUNCTIONALITY
+      // ============================================
+
+      let cart = [];
+      let wishlist = [];
+      let allProducts = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCartFromStorage();
+        loadWishlistFromStorage();
+        updateCartCount();
+        initializeEventListeners();
+        initializeBackToTop();
+        loadProducts();
+      });
+
+      // ============================================
+      // API INTEGRATION
+      // ============================================
+      async function loadProducts() {
+        try {
+          showLoadingState();
+
+          const artists = [
+            "Kendrick Lamar",
+            "Drake",
+            "The Weeknd",
+            "Frank Ocean",
+            "SZA",
+            "JID",
+            "Nicki Minaj",
+            "Kanye West",
+            "Jay-Z",
+            "Beatles",
+            "Michael Jackson",
+            "Eminem",
+            "Brent Faiyaz",
+            "Juice WRLD",
+            "H.E.R.",
+            "Silk Sonic",
+            "Travis Scott",
+            "Tyler the Creator",
+            "Post Malone",
+            "Billie Eilish",
+          ];
+
+          const fetchPromises = artists.map((artist) =>
+            fetch(
+              `https://itunes.apple.com/search?term=${encodeURIComponent(
+                artist
+              )}&entity=album&limit=2`
+            )
+              .then((res) => res.json())
+              .then((data) => data.results)
+          );
+
+          const results = await Promise.all(fetchPromises);
+          allProducts = results
+            .flat()
+            .filter((item) => item.wrapperType === "collection");
+          allProducts = shuffleArray(allProducts).slice(0, 24);
+
+          renderProducts(allProducts.slice(0, 16));
+        } catch (error) {
+          console.error("Error loading products:", error);
+          showToast(
+            "Failed to load products. Please refresh the page.",
+            "error"
+          );
+        }
+      }
+
+      function showLoadingState() {
+        const container = document.querySelector(".pro-container");
+        container.innerHTML = `
+    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--color-ice-blue);"></i>
+      <p style="margin-top: 20px; color: var(--color-text-secondary); font-size: 1.1rem;">Loading albums...</p>
+    </div>
+  `;
+      }
+
+      function renderProducts(products) {
+        const container = document.querySelector(".pro-container");
+
+        container.innerHTML = products
+          .map((product) => {
+            const id = product.collectionId;
+            const price = Math.floor(Math.random() * (1200 - 300) + 300);
+            const isInWishlist = wishlist.includes(`album-${id}`);
+
+            return `
+      <article class="pro" data-id="album-${id}" data-price="${price}" 
+               data-artist="${escapeHtml(product.artistName)}" 
+               data-title="${escapeHtml(product.collectionName)}"
+               data-collection-id="${id}">
+        <img src="${product.artworkUrl100.replace("100x100", "400x400")}" 
+             alt="${escapeHtml(product.collectionName)}" loading="lazy"
+             onclick="viewProduct(${id})">
+        <div class="des" onclick="viewProduct(${id})">
+          <span class="category">${escapeHtml(product.artistName)}</span>
+          <h3>${escapeHtml(product.collectionName)}</h3>
+          <p class="price"><span class="currency">R</span>${price}</p>
+        </div>
+        <div class="links">
+          <button type="button" class="wishlist-btn ${
+            isInWishlist ? "active" : ""
+          }" 
+                  aria-label="Add to wishlist" title="Add to wishlist">
+            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="cart-btn" 
+                  aria-label="Add to cart" title="Add to cart">
+            <i class="fa-solid fa-cart-shopping cart" aria-hidden="true"></i>
+          </button>
+        </div>
+      </article>
+    `;
+          })
+          .join("");
+
+        initializeCartButtons();
+        initializeWishlistButtons();
+      }
+
+      function viewProduct(collectionId) {
+        // Store product data in sessionStorage
+        const product = allProducts.find(
+          (p) => p.collectionId === collectionId
+        );
+        if (product) {
+          sessionStorage.setItem("currentProduct", JSON.stringify(product));
+          window.location.href = "product.html";
+        }
+      }
+
+      function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        };
+        return text.replace(/[&<>"']/g, (m) => map[m]);
+      }
+
+      // ============================================
+      // MOBILE MENU
+      // ============================================
+      function initializeEventListeners() {
+        const bar = document.getElementById("bar");
+        const close = document.getElementById("close");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+          bar.addEventListener("click", () => {
+            navbar.classList.add("active");
+            bar.setAttribute("aria-expanded", "true");
+          });
+        }
+
+        if (close) {
+          close.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        }
+
+        const navLinks = document.querySelectorAll("#navbar li a");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            navbar.classList.remove("active");
+            if (bar) bar.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
+      // ============================================
+      // CART FUNCTIONALITY
+      // ============================================
+      function initializeCartButtons() {
+        const cartButtons = document.querySelectorAll(".cart-btn");
+
+        cartButtons.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productCard = button.closest(".pro");
+            const product = {
+              id: productCard.dataset.id,
+              title: productCard.dataset.title,
+              artist: productCard.dataset.artist,
+              price: parseFloat(productCard.dataset.price),
+              image: productCard.querySelector("img").src,
+            };
+
+            addToCart(product, button);
+          });
+        });
+      }
+
+      function addToCart(product, button) {
+        button.classList.add("btn-loading");
+
+        const existingProduct = cart.find((item) => item.id === product.id);
+
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+          showToast(`Updated quantity for "${product.title}"`, "info");
+        } else {
+          product.quantity = 1;
+          cart.push(product);
+          showToast(`"${product.title}" added to cart!`, "success");
+        }
+
+        saveCartToStorage();
+        updateCartCount();
+
+        setTimeout(() => {
+          button.classList.remove("btn-loading");
+        }, 300);
+      }
+
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElements = document.querySelectorAll(".cart-count");
+
+        cartCountElements.forEach((element) => {
+          element.textContent = totalItems;
+          element.style.display = totalItems > 0 ? "flex" : "none";
+        });
+      }
+
+      function saveCartToStorage() {
+        try {
+          localStorage.setItem("vinylCart", JSON.stringify(cart));
+        } catch (e) {
+          console.error("Error saving cart:", e);
+        }
+      }
+
+      function loadCartFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylCart");
+          if (stored) cart = JSON.parse(stored);
+        } catch (e) {
+          console.error("Error loading cart:", e);
+          cart = [];
+        }
+      }
+
+      // ============================================
+      // WISHLIST FUNCTIONALITY
+      // ============================================
+      function initializeWishlistButtons() {
+        const wishlistButtons = document.querySelectorAll(".wishlist-btn");
+
+        wishlistButtons.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productCard = button.closest(".pro");
+            const productId = productCard.dataset.id;
+
+            const product = {
+              id: productId,
+              title: productCard.dataset.title,
+              artist: productCard.dataset.artist,
+              price: parseFloat(productCard.dataset.price),
+              image: productCard.querySelector("img").src,
+            };
+
+            toggleWishlist(product, button);
+          });
+        });
+      }
+
+      function toggleWishlist(product, button) {
+        const index = wishlist.findIndex((id) => id === product.id);
+
+        if (index > -1) {
+          wishlist.splice(index, 1);
+          button.classList.remove("active");
+          showToast(`"${product.title}" removed from wishlist`, "info");
+        } else {
+          wishlist.push(product.id);
+          button.classList.add("active");
+          showToast(`"${product.title}" added to wishlist!`, "success");
+        }
+
+        saveWishlistToStorage();
+      }
+
+      function saveWishlistToStorage() {
+        try {
+          localStorage.setItem("vinylWishlist", JSON.stringify(wishlist));
+        } catch (e) {
+          console.error("Error saving wishlist:", e);
+        }
+      }
+
+      function loadWishlistFromStorage() {
+        try {
+          const stored = localStorage.getItem("vinylWishlist");
+          if (stored) wishlist = JSON.parse(stored);
+        } catch (e) {
+          console.error("Error loading wishlist:", e);
+          wishlist = [];
+        }
+      }
+
+      // ============================================
+      // TOAST NOTIFICATIONS
+      // ============================================
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // ============================================
+      // BACK TO TOP BUTTON
+      // ============================================
+      function initializeBackToTop() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (!backToTopButton) return;
+
+        window.addEventListener("scroll", () => {
+          if (window.pageYOffset > 300) {
+            backToTopButton.classList.add("show");
+          } else {
+            backToTopButton.classList.remove("show");
+          }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      // Make viewProduct available globally
+      window.viewProduct = viewProduct;
+    </script>
+  </body>
+</html>
